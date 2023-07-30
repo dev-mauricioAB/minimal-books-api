@@ -1,0 +1,36 @@
+# deployment.yaml
+
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: minimal-books-api-deployment
+
+spec:
+  replicas: 1  # Change this as needed based on your requirements
+
+  selector:
+    matchLabels:
+      app: minimal-books-api
+
+  template:
+    metadata:
+      labels:
+        app: minimal-books-api
+
+    spec:
+      containers:
+      - name: minimal-books-api-container
+        image: mauricioab/minimal-books-api:latest
+
+        ports:
+        - containerPort: 5256  # The port your ASP.NET Core app listens on
+          
+        resources:
+            limits:
+              cpu: '1'
+              memory: '512Mi'
+            requests:
+              cpu: '0.5'
+              memory: '256Mi'
